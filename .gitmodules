@@ -1,6 +1,7 @@
-[submodule "esp32_person_detection/components/esp-nn"]
-	path = esp32_person_detection/components/esp-nn
-	url = https://github.com/espressif/esp-nn.git
 [submodule "esp32_person_detection/components/esp32-camera"]
 	path = esp32_person_detection/components/esp32-camera
 	url = https://github.com/espressif/esp32-camera.git
+
+[submodule "esp32_person_detection/components/esp-nn"]
+	path = esp32_person_detection/components/esp-nn
+	url = https://github.com/espressif/esp-nn.git
