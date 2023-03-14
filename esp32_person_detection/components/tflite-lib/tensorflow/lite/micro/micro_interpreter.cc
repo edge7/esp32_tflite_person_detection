@@ -31,6 +31,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/tflite_bridge/op_resolver_bridge.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 #include "tensorflow/lite/schema/schema_utils.h"
+#include "esp_log.h"
 
 namespace tflite {
 
@@ -187,6 +188,7 @@ TfLiteStatus MicroInterpreter::AllocateTensors() {
     initialization_status_ = kTfLiteError;
     return kTfLiteError;
   }
+  ESP_LOGI("MICRO_INT", "stage 1");
 
   graph_.SetSubgraphAllocations(allocations);
 
@@ -198,16 +200,16 @@ TfLiteStatus MicroInterpreter::AllocateTensors() {
   context_.GetScratchBuffer = nullptr;
   context_.GetExternalContext = nullptr;
   TF_LITE_ENSURE_STATUS(graph_.InitSubgraphs());
-
+  ESP_LOGI("MICRO_INT", "stage 2");
   // Both AllocatePersistentBuffer and RequestScratchBufferInArena is
   // available in Prepare stage.
   context_.RequestScratchBufferInArena =
       MicroContextRequestScratchBufferInArena;
   // external_context become available in Prepare stage.
   context_.GetExternalContext = MicroContextGetExternalContext;
-
+  ESP_LOGI("MICRO_INT", "stage 2.1");
   TF_LITE_ENSURE_STATUS(graph_.PrepareSubgraphs());
-
+  ESP_LOGI("MICRO_INT", "stage 3");
   // Prepare is done, we're ready for Invoke. Memory allocation is no longer
   // allowed. Kernels can only fetch scratch buffers via GetScratchBuffer.
   context_.AllocatePersistentBuffer = nullptr;
@@ -217,9 +219,9 @@ TfLiteStatus MicroInterpreter::AllocateTensors() {
   TF_LITE_ENSURE_OK(&context_, allocator_.FinishModelAllocation(
                                    model_, graph_.GetAllocations(),
                                    &scratch_buffer_handles_));
-
+    ESP_LOGI("MICRO_INT", "stage 3.1");
   micro_context_.SetScratchBufferHandles(scratch_buffer_handles_);
-
+  ESP_LOGI("MICRO_INT", "stage 4");
   // TODO(b/162311891): Drop these allocations when the interpreter supports
   // handling buffers from TfLiteEvalTensor.
   input_tensors_ =
@@ -232,7 +234,7 @@ TfLiteStatus MicroInterpreter::AllocateTensors() {
         sizeof(TfLiteTensor*) * inputs_size());
     return kTfLiteError;
   }
-
+  ESP_LOGI("MICRO_INT", "stage 5");
   for (size_t i = 0; i < inputs_size(); ++i) {
     input_tensors_[i] = allocator_.AllocatePersistentTfLiteTensor(
         model_, graph_.GetAllocations(), inputs().Get(i), 0);
@@ -241,7 +243,7 @@ TfLiteStatus MicroInterpreter::AllocateTensors() {
       return kTfLiteError;
     }
   }
-
+    ESP_LOGI("MICRO_INT", "stage 6");
   // TODO(b/162311891): Drop these allocations when the interpreter supports
   // handling buffers from TfLiteEvalTensor.
   output_tensors_ =

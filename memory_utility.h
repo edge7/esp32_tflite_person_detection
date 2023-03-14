@@ -1,0 +1,9 @@
+//
+// Created by edge7 on 14/03/23.
+//
+
+#ifndef ESP32_PERSON_DETECTION_MEMORY_UTILITY_H
+#define ESP32_PERSON_DETECTION_MEMORY_UTILITY_H
+void print_free_memory();
+
+#endif //ESP32_PERSON_DETECTION_MEMORY_UTILITY_H
