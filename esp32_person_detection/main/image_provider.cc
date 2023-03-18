@@ -6,6 +6,7 @@
 #include "app_camera_esp.h"
 #include "esp_camera.h"
 #include "image_provider.h"
+#include "http_handler.h"
 
 static const char *TAG = "app_camera";
 
@@ -78,6 +79,7 @@ TfLiteStatus GetImage(float *image_data) {
     ESP_LOGI(TAG, "height %d", fb->height);
     vTaskDelay(1);
     process_camera_image(fb, image_data, 128, 128);
+    send_image_data(image_data, 128*128);
     esp_camera_fb_return(fb);
     /* here the esp camera can give you grayscale image directly */
     return kTfLiteOk;

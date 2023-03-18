@@ -3,13 +3,11 @@
 #include "freertos/task.h"
 #include "init_functions.h"
 #include "wifi_utility.h"
-#include "esp_memory_utils.h"
 #include "memory_utility.h"
 
-const char * TAG = "MAIN";
 
 void tf_main(void) {
-
+    const char * TAG = "MAIN";
     ESP_LOGI(TAG, "Starting App. ");
     print_memory_info();
     wifi_init_sta();
@@ -19,6 +17,7 @@ void tf_main(void) {
     print_memory_info();
     ESP_LOGI(TAG, "Setup done, starting looping");
     while (true) {
+        print_memory_info();
         loop();
     }
 }

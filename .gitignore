@@ -34,3 +34,5 @@
 
 /esp32_person_detection/build/
 /esp32_person_detection/cmake-build-debug/
+/esp32_person_detection/sdkconfig.old
+/esp32_person_detection/sdkconfig

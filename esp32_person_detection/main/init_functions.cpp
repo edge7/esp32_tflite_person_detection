@@ -9,14 +9,10 @@
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 #include "image_provider.h"
-#include "model_settings.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "memory_utility.h"
-#include "init_functions.h"
-#include "http_handler.h"
 #include <esp_heap_caps.h>
-#include <esp_timer.h>
 #include <esp_log.h>
 static const char* TAG = "INIT";
 
@@ -100,7 +96,6 @@ void loop() {
 
     TfLiteTensor* output = interpreter->output(0);
 
-    send_image_data(input->data.f, 128*128);
     // Process the inference results.
     float person_probability = output->data.f[0];
     // Respond to detection

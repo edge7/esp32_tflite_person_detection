@@ -18,8 +18,6 @@
 
 static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_CONNECTED_BIT BIT0
-const char *TAG = "CONNECT";
-
 
 static void event_handler(void* arg, esp_event_base_t event_base,
                           int32_t event_id, void* event_data)
@@ -38,6 +36,8 @@ static void event_handler(void* arg, esp_event_base_t event_base,
 }
 
 void wifi_init_sta() {
+    const char *TAG = "CONNECT";
+
     s_wifi_event_group = xEventGroupCreate();
     uint8_t mac_addr[6] = {0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc};
     esp_err_t ret = esp_base_mac_addr_set(mac_addr);
