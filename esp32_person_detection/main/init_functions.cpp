@@ -22,7 +22,7 @@ namespace {
     tflite::MicroInterpreter* interpreter = nullptr;
     TfLiteTensor* input = nullptr;
 
-    constexpr int kTensorArenaSize = 600 * 1024;
+    constexpr int kTensorArenaSize = 3000 * 1024;
     static uint8_t *tensor_arena;
 }  // namespace
 
