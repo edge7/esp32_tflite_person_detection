@@ -79,7 +79,7 @@ TfLiteStatus GetImage(float *image_data) {
     ESP_LOGI(TAG, "height %d", fb->height);
     vTaskDelay(1);
     process_camera_image(fb, image_data, 256, 256);
-    // send_image_data(image_data, 256*256); //uncomment if you want to send pictures for debugging reason
+    send_image_data(image_data, 256*256); //uncomment if you want to send pictures for debugging reason
     esp_camera_fb_return(fb);
     /* here the esp camera can give you grayscale image directly */
     return kTfLiteOk;

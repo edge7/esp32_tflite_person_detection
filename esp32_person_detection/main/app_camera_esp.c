@@ -56,7 +56,7 @@ int app_camera_init() {
   config.pixel_format = CAMERA_PIXEL_FORMAT;
   config.frame_size = CAMERA_FRAME_SIZE;
   config.jpeg_quality = 10;
-  config.fb_count = 2;
+  config.fb_count = 1;
   config.fb_location = CAMERA_FB_IN_PSRAM;
 
   // camera init

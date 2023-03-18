@@ -11,7 +11,7 @@ const char * TAG = "HTTP_HANDLER";
 esp_err_t send_image_data(float *image_data, int num_elements) {
     // Set up the HTTP client configuration
     esp_http_client_config_t config = {
-            .url = "http://192.168.1.79:5000/upload_image", //Modify this in according to your setting
+            .url = "http://192.168.1.133:5000/upload_image", //Modify this in according to your setting
             .method = HTTP_METHOD_POST,
             .buffer_size = 1024,
     };
